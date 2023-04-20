@@ -18,7 +18,7 @@ div[role="combobox"] ul {
 
 const styleSheet = document.createElement("style");
 styleSheet.type = "text/css";
-styleSheet.innerText = hiddenStyle;
+styleSheet.innerText = "";
 document.head.appendChild(styleSheet);
 
 function keyPress(input, key) {
