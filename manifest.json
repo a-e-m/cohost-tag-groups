@@ -2,11 +2,13 @@
 
     "manifest_version": 2,
     "name": "Cohost Tag Groups",
-    "version": "1.1",
+    "version": "1.5",
   
     "description": "Adds the ability to conveniently add multiple related tags to a cohost Post.",
   
     "icons": {
+      "16": "icons/eggbug-wizard-16.png",
+      "32": "icons/eggbug-wizard-32.png",
       "48": "icons/eggbug-wizard-48.png",
       "96": "icons/eggbug-wizard-96.png"
     },

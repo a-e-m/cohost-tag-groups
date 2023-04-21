@@ -3,7 +3,6 @@ const KEY = "cohostTagGroups";
 let mapping = {};
 browser.storage.sync.get(KEY).then(res => {
     mapping = res[KEY];
-    console.log('testing tag groups', mapping);
 });
 
 browser.storage.onChanged.addListener(e => {
@@ -49,16 +48,16 @@ function inputTag(tags, currentIndex) {
 }
 
 let input = document.querySelector('input[placeholder$="tags"]');
-if (input) {
 
-    window.addEventListener("keydown", e => {
-        if (e.key === "Enter" && e.target.placeholder === "#add tags") {
-            const value = e.target.value;
-            if (value in mapping) {
-                styleSheet.innerText = hiddenStyle;
-                console.log(value, mapping[value]);
-                setTimeout(inputTag, 2, mapping[value], 0);
-            }
+const ENTER_KEYS = new Set(["Enter", ",", ";"]);
+
+window.addEventListener("keydown", e => {
+    if (ENTER_KEYS.has(e.key) && e.target.placeholder === "#add tags") {
+        input = document.querySelector('input[placeholder$="tags"]');
+        const value = e.target.value;
+        if (value in mapping) {
+            styleSheet.innerText = hiddenStyle;
+            setTimeout(inputTag, 2, mapping[value], 0);
         }
-    });
-}
+    }
+});

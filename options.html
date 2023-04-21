@@ -7,14 +7,14 @@
         body {
             text-align: center;
             margin: auto;
-            background-color: #333;
-            color: #ccc;
-            font-size: 3em;
+            background-color: rgb(28,27,34);
+            color: rgb(251,251,254);
+            font-size: 2.5em;
             padding: 2em;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
 
-        input[type="text"] {
+        textarea, input[type="text"] {
             font-size: 1em;
             margin: 0.2em;
         }
@@ -23,15 +23,28 @@
             font-size: 1em;
             margin: 0.2em;
         }
+
+        .edit-container {
+            display: flex;
+            align-items: center;
+            justify-items: center;
+            padding: 0.5em;
+            margin: 0.5em;
+            border: 1px solid gray;
+            border-radius: 0.5em;
+            flex-wrap: wrap;
+        }
     </style>
   </head>
 
 <body>
   <form>
+    <div class="edit-container">
       <label>New tag group:</label>
       <input type="text" placeholder="example tag" id="key" >
-      <input type="text" placeholder="tag 1, tag 2" id="values" >
+      <textarea placeholder="tag 1&#10;tag 2" id="values"></textarea>
       <button type="submit">Create</button>
+    </div>
   </form>
   <div id="parent"></div>
   <script src="options.js" type="module"></script>

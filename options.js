@@ -23,15 +23,15 @@ function el(tag, attribs) {
     }
     return element;
 }
-  
+
 async function loadOptions() {  
     const res = (await browser.storage.sync.get(KEY) || {})[KEY] || {};
     $("#parent").innerHTML = "";
     for (const [key, value] of Object.entries(res)) {
-        const container = el("div");
+        const container = el("div", { className: "edit-container" });
         const keyEl = el("input", { value: key, type: "text" })
         container.appendChild(keyEl);
-        const valEl = el("input", { value: value.join ? value.join(",") : value, type: "text" });
+        const valEl = el("textarea", { value: value.join ? value.join("\n") : value });
         container.appendChild(valEl);
         const deleteButton = el("button", { text: "Delete" });
         deleteButton.addEventListener("click", e => {
@@ -50,18 +50,17 @@ async function loadOptions() {
     return res;
 }
 
+let options;
+
+async function saveOptions() {
+    browser.storage.sync.set({
+        [KEY]: options
+    });
+    await loadOptions();
+}
 
 (async () => {
-    const options = await loadOptions();
-    console.log(options);
-
-    async function saveOptions() {
-        console.log(options)
-        browser.storage.sync.set({
-            [KEY]: options
-        });
-        await loadOptions();
-    }
+    options = await loadOptions();
     document.querySelector("form").addEventListener("submit", async e => {
         e.preventDefault();
         options[$("#key").value] = splitTags($("#values").value);
