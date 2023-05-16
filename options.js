@@ -1,5 +1,7 @@
 const KEY = "cohostTagGroups";
 
+const extension = (typeof browser === "undefined") ? chrome : browser;
+
 function splitTags(tags) {
     return tags.split(/\s*[\n,]\s*/g);
 }
@@ -25,7 +27,7 @@ function el(tag, attribs) {
 }
 
 async function loadOptions() {  
-    const res = (await browser.storage.sync.get(KEY) || {})[KEY] || {};
+    const res = (await extension.storage.sync.get(KEY) || {})[KEY] || {};
     $("#parent").innerHTML = "";
     for (const [key, value] of Object.entries(res)) {
         const container = el("div", { className: "edit-container" });
@@ -53,7 +55,7 @@ async function loadOptions() {
 let options;
 
 async function saveOptions() {
-    browser.storage.sync.set({
+    extension.storage.sync.set({
         [KEY]: options
     });
     await loadOptions();

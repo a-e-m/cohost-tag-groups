@@ -1,11 +1,13 @@
 const KEY = "cohostTagGroups";
 
+const extension = (typeof browser === "undefined") ? chrome : browser;
+
 let mapping = {};
-browser.storage.sync.get(KEY).then(res => {
+extension.storage.sync.get(KEY).then(res => {
     mapping = res[KEY];
 });
 
-browser.storage.onChanged.addListener(e => {
+extension.storage.onChanged.addListener(e => {
     mapping = e.cohostTagGroups.newValue;
 });
 
@@ -49,15 +51,16 @@ function inputTag(tags, currentIndex) {
 
 let input = document.querySelector('input[placeholder$="tags"]');
 
-const ENTER_KEYS = new Set(["Enter", ",", ";"]);
+const ENTER_KEYS = new Set(["Enter", "Comma", "Semicolon", ",", ";", "Tab"]);
 
 window.addEventListener("keydown", e => {
     if (ENTER_KEYS.has(e.key) && e.target.placeholder === "#add tags") {
         input = document.querySelector('input[placeholder$="tags"]');
+
         const value = e.target.value;
         if (value in mapping) {
             styleSheet.innerText = hiddenStyle;
             setTimeout(inputTag, 2, mapping[value], 0);
         }
     }
-});
+}, true);
