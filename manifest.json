@@ -2,7 +2,7 @@
 
     "manifest_version": 3,
     "name": "Cohost Tag Groups",
-    "version": "1.7",
+    "version": "1.8",
   
     "description": "Adds the ability to conveniently add multiple related tags to a Cohost post.",
   

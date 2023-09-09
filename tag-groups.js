@@ -60,7 +60,8 @@ window.addEventListener("keydown", e => {
         const value = e.target.value;
         if (value in mapping) {
             styleSheet.innerText = hiddenStyle;
-            setTimeout(inputTag, 2, mapping[value], 0);
+            const tags = mapping[value].filter(v => v !== value);
+            setTimeout(inputTag, 2, tags, 0);
         }
     }
 }, true);
